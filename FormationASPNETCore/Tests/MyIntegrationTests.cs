@@ -10,6 +10,7 @@ using NUnit.Framework;
 using FormationASPNETCore.Entities;
 using FormationASPNETCore.Services;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Configuration;
 
 namespace Tests
 {
@@ -24,11 +25,12 @@ namespace Tests
         [SetUp]
         public void SetUp()
         {
+            var configuration = new ConfigurationBuilder().AddJsonFile("appsettings.Development.json").Build();
             var serviceProvider = new ServiceCollection()
                 .AddEntityFrameworkNpgsql()
                 .BuildServiceProvider();
             var builder = new DbContextOptionsBuilder<FormationDbContext>();
-            builder.UseNpgsql("Host=localhost;Port=5433;Database=mydb;Username=postgres;Password=mot-de-passe")
+            builder.UseNpgsql(configuration.GetConnectionString("FormationDb"))
                 .UseInternalServiceProvider(serviceProvider);
             this.context = new FormationDbContext(builder.Options);
 

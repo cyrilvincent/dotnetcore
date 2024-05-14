@@ -1,6 +1,7 @@
 using FormationASPNETCore;
 using FormationASPNETCore.Services;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using NLog;
 using NLog.Web;
 
@@ -18,7 +19,7 @@ builder.Services.AddControllers();
 
 builder.Services.AddDbContext<FormationDbContext>(options =>
 {
-    options.UseNpgsql("Host=localhost;Port=5433;Database=mydb;Username=postgres;Password=mot-de-passe")
+    options.UseNpgsql(builder.Configuration.GetConnectionString("FormationDb"))
            .LogTo(Console.WriteLine);
 });
 

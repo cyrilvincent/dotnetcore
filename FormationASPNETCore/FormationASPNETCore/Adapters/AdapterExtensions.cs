@@ -3,7 +3,7 @@ using FormationASPNETCore.Entities;
 
 namespace FormationASPNETCore.Adapters
 {
-    public static class Adapters
+    public static class AdapterExtensions
     {
         public static MediaDTO ToMediaDTO(this Media media)
         {
