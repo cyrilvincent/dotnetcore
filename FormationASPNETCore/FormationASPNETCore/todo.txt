@@ -1,5 +1,3 @@
-log
-service
-webapi
 connstring dans appsettings
+Page HTML contenant angular + elements statics
 

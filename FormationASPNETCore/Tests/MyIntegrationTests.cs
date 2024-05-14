@@ -8,6 +8,8 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using NUnit.Framework;
 using FormationASPNETCore.Entities;
+using FormationASPNETCore.Services;
+using Microsoft.Extensions.Logging;
 
 namespace Tests
 {
@@ -17,6 +19,7 @@ namespace Tests
     public class MyIntegrationTests
     {
         private FormationDbContext context;
+        private ILogger<MediaService> logger;
 
         [SetUp]
         public void SetUp()
@@ -28,6 +31,9 @@ namespace Tests
             builder.UseNpgsql("Host=localhost;Port=5433;Database=mydb;Username=postgres;Password=mot-de-passe")
                 .UseInternalServiceProvider(serviceProvider);
             this.context = new FormationDbContext(builder.Options);
+
+            using ILoggerFactory factory = LoggerFactory.Create(builder => builder.AddConsole());
+            logger = factory.CreateLogger<MediaService>();
         }
 
         [TearDown]
@@ -88,6 +94,15 @@ namespace Tests
             var media = context.Medias.Include(e => e.Publisher).First();
             var medias = media.Publisher.Medias.ToList();
             Assert.That(medias.Count, Is.GreaterThan(0));
+        }
+
+        [Test]
+        public void ServiceTest()
+        {
+            var service = new MediaService(context, logger);
+            var media = service.FilterByTitle("C").First();
+            Assert.That(media, Is.Not.Null);
+
         }
     }
 }

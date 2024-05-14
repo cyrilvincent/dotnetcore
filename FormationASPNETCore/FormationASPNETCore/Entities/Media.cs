@@ -1,9 +1,9 @@
 ﻿namespace FormationASPNETCore.Entities
 {
-    public class Media
+    public class Media : IEntity
     {
         public long Id { get; set; }
-        public string Title { get; set; }
+        public required string Title { get; set; }
         public float Price { get; set; }
         public string? Comment { get; set; }
         public MediaType MediaType { get; set; }

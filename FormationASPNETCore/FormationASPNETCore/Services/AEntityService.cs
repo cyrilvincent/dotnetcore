@@ -5,13 +5,15 @@ using Microsoft.Extensions.Logging;
 
 namespace FormationASPNETCore.Services;
 
-public abstract class AEntityService<TEntity> : AService, IDisposable, IAsyncDisposable where TEntity : class, IEntity
+public abstract class AEntityService<TEntity> : IDisposable, IAsyncDisposable where TEntity : class, IEntity
 {
     protected readonly FormationDbContext dbContext;
+    protected readonly ILogger logger;
 
-    protected AEntityService(FormationDbContext dbContext, ILogger<AEntityService<TEntity>> logger) : base(logger)
+    protected AEntityService(FormationDbContext dbContext, ILogger<AEntityService<TEntity>> logger)
     {
         this.dbContext = dbContext;
+        this.logger = logger;
     }
 
     public async Task<T> Add<T>(T entity) where T : class, IEntity
