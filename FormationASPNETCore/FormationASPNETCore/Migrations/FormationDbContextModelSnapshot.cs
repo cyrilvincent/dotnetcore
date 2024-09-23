@@ -23,6 +23,46 @@ namespace FormationASPNETCore.Migrations
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
+            modelBuilder.Entity("AuthorMedia", b =>
+                {
+                    b.Property<long>("AuthorsId")
+                        .HasColumnType("bigint");
+
+                    b.Property<long>("MediasId")
+                        .HasColumnType("bigint");
+
+                    b.HasKey("AuthorsId", "MediasId");
+
+                    b.HasIndex("MediasId");
+
+                    b.ToTable("media_author", "public");
+                });
+
+            modelBuilder.Entity("FormationASPNETCore.Entities.Author", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint")
+                        .HasColumnName("id");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
+
+                    b.Property<string>("FirstName")
+                        .HasMaxLength(255)
+                        .HasColumnType("character varying(255)")
+                        .HasColumnName("first_name");
+
+                    b.Property<string>("LastName")
+                        .IsRequired()
+                        .HasMaxLength(255)
+                        .HasColumnType("character varying(255)")
+                        .HasColumnName("last_name");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("author", "public");
+                });
+
             modelBuilder.Entity("FormationASPNETCore.Entities.Media", b =>
                 {
                     b.Property<long>("Id")
@@ -90,6 +130,21 @@ namespace FormationASPNETCore.Migrations
                     b.HasIndex("Name");
 
                     b.ToTable("publisher", "public");
+                });
+
+            modelBuilder.Entity("AuthorMedia", b =>
+                {
+                    b.HasOne("FormationASPNETCore.Entities.Author", null)
+                        .WithMany()
+                        .HasForeignKey("AuthorsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("FormationASPNETCore.Entities.Media", null)
+                        .WithMany()
+                        .HasForeignKey("MediasId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("FormationASPNETCore.Entities.Media", b =>

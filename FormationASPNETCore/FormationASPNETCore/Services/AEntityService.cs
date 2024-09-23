@@ -10,7 +10,7 @@ public abstract class AEntityService<TEntity> : IDisposable, IAsyncDisposable wh
     protected readonly FormationDbContext dbContext;
     protected readonly ILogger logger;
 
-    protected AEntityService(FormationDbContext dbContext, ILogger<AEntityService<TEntity>> logger)
+    protected AEntityService(FormationDbContext dbContext, ILogger logger)
     {
         this.dbContext = dbContext;
         this.logger = logger;

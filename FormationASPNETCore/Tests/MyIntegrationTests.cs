@@ -20,28 +20,41 @@ namespace Tests
     public class MyIntegrationTests
     {
         private FormationDbContext context;
-        private ILogger<MediaService> logger;
+        private ILogger logger;
+        private ServiceProvider serviceProvider;
 
         [SetUp]
         public void SetUp()
         {
             var configuration = new ConfigurationBuilder().AddJsonFile("appsettings.Development.json").Build();
-            var serviceProvider = new ServiceCollection()
-                .AddEntityFrameworkNpgsql()
-                .BuildServiceProvider();
+
+            var services = new ServiceCollection();
+            Injections.InjectServices(services);
+            Injections.InjectDbContext(services, configuration.GetConnectionString("FormationDb"));
+
             var builder = new DbContextOptionsBuilder<FormationDbContext>();
-            builder.UseNpgsql(configuration.GetConnectionString("FormationDb"))
-                .UseInternalServiceProvider(serviceProvider);
-            this.context = new FormationDbContext(builder.Options);
+
+
 
             using ILoggerFactory factory = LoggerFactory.Create(builder => builder.AddConsole());
-            logger = factory.CreateLogger<MediaService>();
+            logger = factory.CreateLogger("FormationLogger");
+
+            services.AddSingleton<ILogger>(logger);
+
+            serviceProvider = services.AddEntityFrameworkNpgsql().BuildServiceProvider();
+
+            builder.UseNpgsql(configuration.GetConnectionString("FormationDb")).UseInternalServiceProvider(serviceProvider);
+            this.context = new FormationDbContext(builder.Options);
+
+
+            //services.AddSingleton<ILogger<MediaService>>(logger);
         }
 
         [TearDown]
         public void TearDown()
         {
             this.context.Dispose();
+            this.serviceProvider.Dispose();
         }
 
         [Test]
@@ -104,6 +117,15 @@ namespace Tests
             var service = new MediaService(context, logger);
             var media = service.FilterByTitle("C").First();
             Assert.That(media, Is.Not.Null);
+
+        }
+
+        [Test]
+        public void InjectionTest()
+        {
+            var logger = serviceProvider.GetService<ILogger<MediaService>>();
+            var service = serviceProvider.GetService<IMediaService>();
+            Assert.That(service, Is.Not.Null);
 
         }
     }

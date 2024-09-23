@@ -13,21 +13,18 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Logging.ClearProviders();
 builder.Host.UseNLog();
 
-// Add services to the container.
+Injections.InjectServices(builder.Services);
 
 builder.Services.AddControllers();
 
-builder.Services.AddDbContext<FormationDbContext>(options =>
-{
-    options.UseNpgsql(builder.Configuration.GetConnectionString("FormationDb"))
-           .LogTo(Console.WriteLine);
-});
+var connectionString = builder.Configuration.GetConnectionString("FormationDb");
+Injections.InjectDbContext(builder.Services, connectionString);
 
-builder.Services.AddScoped<IMediaService, MediaService>();
+//builder.Services.AddScoped<IMediaService, MediaService>(); // A déporter dans classe statique
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+builder.Services.AddSwaggerGen(); // <GenerateDocumentationFile>true dans csproj pour avoir le commentaires ou dans propriétés du projet build / sortie / fichier de documentation
 
 var app = builder.Build();
 

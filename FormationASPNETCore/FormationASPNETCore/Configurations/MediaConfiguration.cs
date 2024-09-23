@@ -33,6 +33,8 @@ namespace FormationASPNETCore.Configurations
             builder.HasOne(entity => entity.Publisher)
                    .WithMany(entity => entity.Medias)
                    .HasForeignKey(entity => entity.PublisherId);
+
+            builder.HasMany(entity => entity.Authors).WithMany(entity => entity.Medias).UsingEntity(entity => entity.ToTable("media_author")); ;
         }
     }
 }

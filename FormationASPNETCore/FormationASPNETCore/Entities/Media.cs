@@ -9,6 +9,7 @@
         public MediaType MediaType { get; set; }
         public Publisher? Publisher { get; set; }
         public long? PublisherId { get; set; }
+        public virtual ICollection<Author> Authors { get; set; } = [];
 
 
     }

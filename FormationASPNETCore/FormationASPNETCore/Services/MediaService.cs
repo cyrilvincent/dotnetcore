@@ -17,7 +17,7 @@ namespace FormationASPNETCore.Services
 
         public MediaService(
             FormationDbContext dbContext,
-            ILogger<MediaService> logger
+            ILogger logger
         ) : base(dbContext, logger)
         {
             logger.LogCritical("Injection ok");
@@ -30,7 +30,7 @@ namespace FormationASPNETCore.Services
 
         public IQueryable<MediaDTO> FilterByTitle(string title)
         {
-            return dbContext.Medias.Include(e => e.Publisher).FilterByTitle(title).Select(e => e.ToMediaDTO());
+            return dbContext.Medias.Include(e => e.Publisher).FilterByTitle(title).Select(e => e.ToMediaDTO()); // ThenInclude pour sous include
         }
 
 
