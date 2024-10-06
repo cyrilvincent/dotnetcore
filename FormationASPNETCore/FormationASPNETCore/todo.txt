@@ -1,6 +1,0 @@
-Injection nlog tests
-Page HTML contenant angular + elements statics
-Déployer le resultat de la compil dans docker
-JWT
-Authentication
-Authorization
