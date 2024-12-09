@@ -76,41 +76,88 @@ using System.Security.Cryptography;
 // Bonus Fibonacci f(5) = f(4)+f(3) avec f(1)=1 et f(0)=0
 // 
 
-Console.Write("Saisir un nombre: ");
-var s = Console.ReadLine();
-int n = int.Parse(s);
-int facto = 1;
-for (int i=2; i<=n; i++)
-{
-    facto *= i;
-}
-Console.WriteLine($"{n}!={facto}");
+//Console.Write("Saisir un nombre: ");
+//var s = Console.ReadLine();
+//int n = int.Parse(s);
+//int facto = 1;
+//for (int i=2; i<=n; i++)
+//{
+//    facto *= i;
+//}
+//Console.WriteLine($"{n}!={facto}");
 
-// Fibo
-var a = 1;
-var b = 0;
-var fibo = a;
+//// Fibo
+//var a = 1;
+//var b = 0;
+//var fibo = a;
 
-for (int i=2; i<=n; i++)
-{
-    fibo = a + b;
-    b = a;
-    a = fibo;
-}
-Console.WriteLine($"F({n})={fibo}");
+//for (int i=2; i<=n; i++)
+//{
+//    fibo = a + b;
+//    b = a;
+//    a = fibo;
+//}
+//Console.WriteLine($"F({n})={fibo}");
 
-List<int> list = new List<int>();
-list.Add(1);
-list.Add(2);
-List<int> list2 = new () { 1, 2, 3, 4, 5, 6, 7, 8, 9 };
-foreach (int v in list2)
-{
-    Console.WriteLine(v);
-}
+//List<int> list = new List<int>();
+//list.Add(1);
+//list.Add(2);
+List<int> list2 = new () { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
+//foreach (int v in list2)
+//{
+//    Console.WriteLine(v);
+//}
 
 // Créer une liste de 10 éléments
 // Multiplier toutes les valeurs de la liste (ne pas mettre 0)
 // Créer une 2ème liste contenant que les nombres pairs de la 1ere liste : {1,2,3,4} => {2,4}
+var result = 1;
+foreach (int v in list2)
+{
+    result *= v;
+}
+Console.WriteLine(result);
+
+var results = new List<int>();
+foreach (int v in list2)
+{
+    if (v % 2 == 0)
+    {
+        results.Add(v);
+    }
+}
+foreach (int v in results)
+{
+    Console.WriteLine(v);
+}
+
+int a = 1;
+int b = a;
+a++;
+Console.WriteLine($"{a} {b}");
+
+// Reference
+List<int> c = new () { 1 };
+List<int> d = c;
+c.Add(2);
+foreach (int v in c) Console.WriteLine(v);
+foreach (int v in d) Console.WriteLine(v);
+Console.WriteLine(c == d);
+
+// 2 distincts, same values, but different references
+List<int> e = new() { 1, 2 };
+List<int> f = new() { 1, 2 };
+Console.WriteLine(e == f);
+e = f;
+Console.WriteLine(e == f);
+
+// Clonage
+List<int> g = new() { 1 };
+List<int> h = new List<int>(g); // Clonage
+g.Add(2);
+foreach (int v in g) Console.WriteLine(v);
+foreach (int v in h) Console.WriteLine(v);
+Console.WriteLine(g == h);
 
 
 
