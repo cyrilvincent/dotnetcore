@@ -13,7 +13,7 @@ namespace FormationConsole.Geometry
         private double width;
 
         // CONSTRUCTEUR
-        public Rectangle(double length, double width)
+        public Rectangle(double length=0, double width=0)
         {
             this.length = length;
             this.width = width;
