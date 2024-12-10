@@ -241,7 +241,22 @@ c1.Debiter(50);
 c1.Debiter(1000);
 Console.WriteLine(c1.Client.Nom);
 Console.WriteLine(c1.Transactions);
+foreach (var transaction in c1.Transactions)
+{
+    Console.WriteLine(transaction.Montant);
+}
 Console.WriteLine(c2.Client.Nom);
+
+//Counter count1 = new Counter();
+//Counter count2 = new Counter();
+//count1.Increment();
+//count1.Increment();
+//count2.Increment();
+Counter.Increment();
+// Console.WriteLine($"Count1: {count1.GetValue()} Count2: {count2.GetValue()}");
+// Counter.Value
+
+
 
 
 

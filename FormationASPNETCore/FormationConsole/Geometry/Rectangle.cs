@@ -6,6 +6,13 @@ using System.Threading.Tasks;
 
 namespace FormationConsole.Geometry
 {
+    public enum Color
+    {
+        Red=0,
+        Green=10,
+        Blue=20
+    }
+
     public class Rectangle
     {
         // QUOI
@@ -21,6 +28,7 @@ namespace FormationConsole.Geometry
         public Point? Point { get; set; } = new Point{};
 
         public List<Point> Points { get; set; } = new List<Point>();
+        public Color Color { get; set; } = Color.Blue;
 
         // CONSTRUCTEUR
         //public Rectangle(double length=0, double width=0)
