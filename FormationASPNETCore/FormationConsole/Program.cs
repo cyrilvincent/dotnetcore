@@ -211,8 +211,9 @@ using System.Security.Cryptography;
 //Console.WriteLine(fibo(5));
 
 
-Rectangle r1 = new Rectangle(3,2);
-Rectangle r2 = new Rectangle(4,3);
+Rectangle r1 = new Rectangle();
+Rectangle r2 = new (4,3);
+var r3 = new Rectangle(5, 6);
 Console.WriteLine(r1);
 Console.WriteLine($"Surface r1: {r1.Surface()}, Perimeter r1: {r1.Perimeter()}");
 
