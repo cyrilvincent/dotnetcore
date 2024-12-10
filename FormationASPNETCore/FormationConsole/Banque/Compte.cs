@@ -12,6 +12,7 @@ namespace FormationConsole.Banque
     // Un compte possède n transactions
     // Créditer => Créer automatiquement une transaction et l'ajouter à la liste de transactions
     // Idem pour débiter
+    // UML
 
 
     public class Compte
@@ -28,12 +29,16 @@ namespace FormationConsole.Banque
             private set { numero = value; }
         }
 
-        public Compte(ulong numero, decimal solde = 0, string devise = "EUR", decimal decouvert = 0m)
+        public Client Client { get; set; }
+        public List<Transaction> Transactions { get; set; } = new List<Transaction>();
+
+        public Compte(ulong numero, Client client, decimal solde = 0, string devise = "EUR", decimal decouvert = 0m)
         {
             this.Numero = numero;
             this.Solde = solde;
             this.Devise = devise;
             this.Decouvert = decouvert;
+            this.Client = client;
         }
         public Compte() { }
 
@@ -44,6 +49,8 @@ namespace FormationConsole.Banque
         public void Crediter(decimal montant)
         {
             Solde += montant;
+            var transaction = new Transaction { Montant = montant };
+            Transactions.Add(transaction);
         }
 
         public void Debiter(decimal montant)
@@ -55,6 +62,8 @@ namespace FormationConsole.Banque
             else
             {
                 Solde -= montant;
+                var transaction = new Transaction { Montant = -montant };
+                Transactions.Add(transaction);
             }
         }
 

@@ -232,13 +232,16 @@ double? toto = r3.Point?.X;
 
 Console.WriteLine(r1);
 Console.WriteLine($"Surface r1: {r1.Surface}, Perimeter r1: {r1.Perimeter}");
-
-Compte c1 = new Compte(1, 100, "EUR", 0);
-var c2 = new Compte { Devise = "EUR", Decouvert=100 };
+Client client = new Client { Id = 1, Prenom = "Cyril", Nom = "Vincent", Telephone = "0622538762", Mail = "contact@cyrilvincent.com"  };
+Compte c1 = new Compte(1, client, 100, "EUR", 0);
+var c2 = new Compte { Devise = "EUR", Decouvert=100, Client=client };
 c1.Crediter(100);
 c2.Crediter(100);
 c1.Debiter(50);
 c1.Debiter(1000);
+Console.WriteLine(c1.Client.Nom);
+Console.WriteLine(c1.Transactions);
+Console.WriteLine(c2.Client.Nom);
 
 
 
