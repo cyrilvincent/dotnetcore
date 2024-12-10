@@ -213,10 +213,13 @@ using System.Security.Cryptography;
 
 
 Rectangle r1 = new Rectangle();
-Rectangle r2 = new (4,3);
-var r3 = new Rectangle(5, 6);
+r1.Width = 3;
+r1.Length = 2;
+// Rectangle r2 = new (4,3);
+var r3 = new Rectangle { Length = 5, Width = 6 };
+
 Console.WriteLine(r1);
-Console.WriteLine($"Surface r1: {r1.Surface()}, Perimeter r1: {r1.Perimeter()}");
+Console.WriteLine($"Surface r1: {r1.Surface}, Perimeter r1: {r1.Perimeter}");
 
 Compte c1 = new Compte(1, 100, "EUR", 0);
 var c2 = new Compte(2);

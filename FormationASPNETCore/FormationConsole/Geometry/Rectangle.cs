@@ -10,29 +10,38 @@ namespace FormationConsole.Geometry
     {
         // QUOI
         private double length;
-        private double width;
+        
+        // PROPERTY
+        public double Length
+        {
+            get { return length; }
+            set { length = value; }
+        }
+        public double Width { get; set; }
 
         // CONSTRUCTEUR
-        public Rectangle(double length=0, double width=0)
-        {
-            this.length = length;
-            this.width = width;
-        }
+        //public Rectangle(double length=0, double width=0)
+        //{
+        //    this.length = length;
+        //    Width = width;
+        //}
 
         // COMMENT
-        public double Surface()
+        public double Surface
         {
-            return length * width;
+            get { return Length * Width; }
         }
 
-        public double Perimeter()
+        public double Perimeter
         {
-            return 2 * (length + width);
+            get {
+                return 2 * (length + Width);
+            }
         }
 
         public override string ToString()
         {
-            return $"Rectangle ({length},{width})";
+            return $"Rectangle ({Length},{Width})";
         }
     }
 }
