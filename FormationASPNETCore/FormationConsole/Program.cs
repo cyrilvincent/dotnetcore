@@ -211,12 +211,24 @@ using System.Security.Cryptography;
 //Console.WriteLine(factorielle(5));
 //Console.WriteLine(fibo(5));
 
-
+Point p1 = new Point { X=2, Y=4 };
+Console.WriteLine(p1);
 Rectangle r1 = new Rectangle();
 r1.Width = 3;
 r1.Length = 2;
 // Rectangle r2 = new (4,3);
-var r3 = new Rectangle { Length = 5, Width = 6 };
+Rectangle r3 = new Rectangle { Length = 5, Width = 6, Point=p1 };
+Rectangle r4 = new Rectangle { Length = 5, Width = 6, Point = new Point { X = 2, Y = 4 } };
+r3.Point.Move(0, 2);
+r3.Point = null;
+r3.Point?.Move(0, 0);
+double? toto = r3.Point?.X;
+
+
+
+
+
+
 
 Console.WriteLine(r1);
 Console.WriteLine($"Surface r1: {r1.Surface}, Perimeter r1: {r1.Perimeter}");

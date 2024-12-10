@@ -6,6 +6,14 @@ using System.Threading.Tasks;
 
 namespace FormationConsole.Banque
 {
+    // TP Créer la classe Client (id, prenom, nom, tel, mail)
+    // Un compte possède 1 et 1 seul client
+    // Créer la classe transaction (id, datetime, montant) si montant < 0 débit sinon c'est un crédit
+    // Un compte possède n transactions
+    // Créditer => Créer automatiquement une transaction et l'ajouter à la liste de transactions
+    // Idem pour débiter
+
+
     public class Compte
     {
         private ulong numero;  // Lecture seul ancienne écriture

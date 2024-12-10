@@ -18,6 +18,9 @@ namespace FormationConsole.Geometry
             set { length = value; }
         }
         public double Width { get; set; }
+        public Point? Point { get; set; } = new Point{};
+
+        public List<Point> Points { get; set; } = new List<Point>();
 
         // CONSTRUCTEUR
         //public Rectangle(double length=0, double width=0)
