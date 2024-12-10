@@ -222,11 +222,12 @@ Console.WriteLine(r1);
 Console.WriteLine($"Surface r1: {r1.Surface}, Perimeter r1: {r1.Perimeter}");
 
 Compte c1 = new Compte(1, 100, "EUR", 0);
-var c2 = new Compte(2);
+var c2 = new Compte { Devise = "EUR", Decouvert=100 };
 c1.Crediter(100);
 c2.Crediter(100);
 c1.Debiter(50);
 c1.Debiter(1000);
+
 
 
 

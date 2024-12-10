@@ -8,41 +8,51 @@ namespace FormationConsole.Banque
 {
     public class Compte
     {
-        private ulong numero;
-        private decimal solde;
-        private string devise;
-        private decimal decouvert;
-        private DateTime creationDate;
+        private ulong numero;  // Lecture seul ancienne écriture
+        public decimal Solde { get; private set; }
+        public string Devise { get; set; }
+        public decimal Decouvert { get; set; }
+        public DateTime CreationDate { get; set; } = DateTime.Now;
 
-        public Compte(ulong numero, decimal solde=0, string devise="EUR", decimal decouvert=0m)
+        public ulong Numero
         {
-            this.numero = numero;
-            this.solde = solde;
-            this.devise = devise;
-            this.decouvert = decouvert;
-            creationDate = DateTime.Now;
+            get { return numero; }
+            private set { numero = value; }
         }
 
+        public Compte(ulong numero, decimal solde = 0, string devise = "EUR", decimal decouvert = 0m)
+        {
+            this.Numero = numero;
+            this.Solde = solde;
+            this.Devise = devise;
+            this.Decouvert = decouvert;
+        }
+        public Compte() { }
+
+        /// <summary>
+        /// Créditer le compte
+        /// </summary>
+        /// <param name="montant">Le montant à créditer</param>
         public void Crediter(decimal montant)
         {
-            solde += montant;
+            Solde += montant;
         }
 
         public void Debiter(decimal montant)
         {
-            if ((montant < 0) || (solde - decouvert < montant))
+            if ((montant < 0) || (Solde - Decouvert < montant))
             {
                 Console.WriteLine("Interdit");
             }
             else
             {
-                solde -= montant;
+                Solde -= montant;
             }
         }
 
         public override string ToString()
         {
-            return $"Compte {numero}:{solde} {devise}";
+            return $"Compte {Numero}:{Solde} {Devise}";
         }
     }
 }
