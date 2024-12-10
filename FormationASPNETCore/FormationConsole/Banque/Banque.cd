@@ -3,18 +3,28 @@
   <Class Name="FormationConsole.Banque.Compte">
     <Position X="3.75" Y="1" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAEAAAAAAgAACAAAAAAAAEAAAQBAAQ=</HashCode>
+      <HashCode>AACAAAAAAAAAAAAEAAAAAAgAACAAAAAAAAEAAAQBAAQ=</HashCode>
       <FileName>Banque\Compte.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
       <Property Name="Client" />
     </ShowAsAssociation>
+    <ShowAsCollectionAssociation>
+      <Property Name="Transactions" />
+    </ShowAsCollectionAssociation>
   </Class>
   <Class Name="FormationConsole.Banque.Client">
     <Position X="6.75" Y="1.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAACAAAAAAAAAAAAAAAAAAAAACAAAAAAAKAAAQAAAAA=</HashCode>
       <FileName>Banque\Client.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FormationConsole.Banque.Transaction">
+    <Position X="6.75" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAAAAAAAgAAAAAAAAAAAAQAAAAAAAAAAAA=</HashCode>
+      <FileName>Banque\Transaction.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Font Name="Segoe UI" Size="9" />

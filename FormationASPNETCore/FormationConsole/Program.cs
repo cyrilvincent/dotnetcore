@@ -243,7 +243,7 @@ Console.WriteLine(c1.Client.Nom);
 Console.WriteLine(c1.Transactions);
 foreach (var transaction in c1.Transactions)
 {
-    Console.WriteLine(transaction.Montant);
+    Console.WriteLine(transaction.Id);
 }
 Console.WriteLine(c2.Client.Nom);
 
@@ -252,7 +252,7 @@ Console.WriteLine(c2.Client.Nom);
 //count1.Increment();
 //count1.Increment();
 //count2.Increment();
-Counter.Increment();
+// Counter.Increment();
 // Console.WriteLine($"Count1: {count1.GetValue()} Count2: {count2.GetValue()}");
 // Counter.Value
 

@@ -49,7 +49,7 @@ namespace FormationConsole.Banque
         public void Crediter(decimal montant)
         {
             Solde += montant;
-            var transaction = new Transaction { Montant = montant };
+            var transaction = new Transaction { Montant = montant, Type=TransactionType.Credit };
             Transactions.Add(transaction);
         }
 
@@ -62,7 +62,7 @@ namespace FormationConsole.Banque
             else
             {
                 Solde -= montant;
-                var transaction = new Transaction { Montant = -montant };
+                var transaction = new Transaction { Montant = montant, Type = TransactionType.Debit };
                 Transactions.Add(transaction);
             }
         }
