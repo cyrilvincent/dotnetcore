@@ -225,6 +225,28 @@ r3.Point?.Move(0, 0);
 double? toto = r3.Point?.X;
 Square s1 = new Square(3);
 Console.WriteLine(s1.Surface);
+var rectangles = new List<Rectangle>
+{
+    r1, r3, r4, new Rectangle { Length = 2, Width = 3, Point=p1 }
+};
+var result = rectangles.Where(r => r.Surface < 15);
+rectangles.Sum(r => r.Surface);
+foreach (Rectangle rectangle in result)
+{
+    Console.WriteLine($"Result: {rectangle}");
+}
+
+for(int i = 0; i < 100; i++)
+{
+    rectangles.Add(new Square(i));
+}
+// Compte en incrémentant le solde du compte
+Random rnd = new Random();
+Decimal d = rnd.Next(0,100);
+d = (Decimal)rnd.NextDouble(); // 0 et 1
+
+// Sum, MAx, Min, filtrer par Surface pairs, Longueur > 10
+// OrderBy
 
 
 
@@ -232,7 +254,9 @@ Console.WriteLine(s1.Surface);
 
 
 
-Console.WriteLine(r1);
+
+
+//Console.WriteLine(r1);
 Console.WriteLine($"Surface r1: {r1.Surface}, Perimeter r1: {r1.Perimeter}");
 Client client = new Client { Id = 1, Prenom = "Cyril", Nom = "Vincent", Telephone = "0622538762", Mail = "contact@cyrilvincent.com"  };
 Compte c1 = new Compte(1, client, 100, "EUR", 0);
