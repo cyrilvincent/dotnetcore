@@ -13,11 +13,11 @@ namespace FormationConsole.Geometry
         Blue=20
     }
 
-    public class Rectangle
+    public class Rectangle : IRectangle
     {
         // QUOI
         private double length;
-        
+
         // PROPERTY
         public double Length
         {
@@ -25,7 +25,7 @@ namespace FormationConsole.Geometry
             set { length = value; }
         }
         public double Width { get; set; }
-        public Point? Point { get; set; } = new Point{};
+        public Point? Point { get; set; } = new Point { };
 
         public List<Point> Points { get; set; } = new List<Point>();
         public Color Color { get; set; } = Color.Blue;
@@ -46,7 +46,8 @@ namespace FormationConsole.Geometry
 
         public double Perimeter
         {
-            get {
+            get
+            {
                 return 2 * (length + Width);
             }
         }
