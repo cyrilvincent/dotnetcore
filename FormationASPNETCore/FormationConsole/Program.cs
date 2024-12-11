@@ -250,7 +250,16 @@ foreach (var transaction in c1.Transactions)
 Console.WriteLine(c2.Client.Nom);
 var c3 = new CompteEpargne(1, client, 100, "EUR", 0, 0.1m);
 Console.WriteLine(c3.Interet);
+Compte c4;
+c4 = c3;
+List<Compte> comptes = new List<Compte>();
 
+var bank = new Bank();
+bank.AddCompte(c1);
+bank.AddCompte(c2);
+bank.AddCompte(c3);
+Console.WriteLine(bank.GetEncours());
+Console.WriteLine(bank.GetInteretsEnCours());
 
 //Counter count1 = new Counter();
 //Counter count2 = new Counter();

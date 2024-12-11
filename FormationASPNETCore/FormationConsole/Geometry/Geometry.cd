@@ -3,7 +3,7 @@
   <Class Name="FormationConsole.Geometry.Rectangle">
     <Position X="3.25" Y="1" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAQAAgAAEAEAAAEBEAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAAAAAAAAQAAgAAEAEAAAEBEAAAAAAAAAAAAgAAAAAA=</HashCode>
       <FileName>Geometry\Rectangle.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
@@ -12,6 +12,7 @@
     <ShowAsCollectionAssociation>
       <Property Name="Points" />
     </ShowAsCollectionAssociation>
+    <Lollipop Position="0.2" />
   </Class>
   <Class Name="FormationConsole.Geometry.Point">
     <Position X="6" Y="1.25" Width="1.5" />
