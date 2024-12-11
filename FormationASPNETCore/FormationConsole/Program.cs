@@ -317,9 +317,50 @@ for (int i = 0; i < 100; i++)
 // Tester une intersection entre 2 listes
 // Tester Union
 // Tester Except
-// Bonus Retourner les comptes numéro 1 (First()) et afficher ses transactions
+// Bonus Retourner le compte numéro 1 (First()) et afficher ses transactions
 
+Console.WriteLine(comptes.Where(c => c.Solde > 5000 && c.Numero % 2 == 0).Count());
+var res = comptes.Where(c => c.Solde > 5000).OrderBy(c => c.Solde).ThenBy(c => c.Numero);
+var soldes = comptes.Where(c => c.Solde < 5000).Select(c => new { c.Solde, c.Numero });
+var avg =  comptes.Where(c => c.Solde < 5000).Average(c => c.Solde);
+var res2 = comptes.Where(c => c.Numero % 2 == 0).OrderBy(c => c.Solde).ThenBy(c => c.Numero);
+var except = res.Except(res2);
+var first = comptes.Where(c => c.Numero == 1).FirstOrDefault()?.Transactions.Where(t => t.Montant > 100); // First = 1er ou erreur, FirstOrDefault le 1er ou null, Single plante si > 1, SingleOrdefaut < 1 => null, 1 => element, > 1 plante
 
+// var ints = new List<double>();
+
+IEnumerable<double> Generator()
+{
+    for (double i = 0; i < 10000000000000000000000000000d; i++)
+    {
+        yield return i;
+    }
+}
+
+bool is_prime(double n)
+{
+    if (n < 2) { return false; }
+    for (double i = 2; i < n; i++)
+    {
+        if (n % i == 0) return false;
+    }
+    return true;
+}
+
+//var ints = Generator();
+//var pairsAndPrimes = ints.Where(i => i % 2 == 0 && is_prime(i));
+////foreach (int value in primes)
+////{
+////    Console.Write($"{value} ");
+////}
+//Console.WriteLine();
+//foreach (double value in pairsAndPrimes)
+//{
+//    Console.Write($"{value} ");
+//}
+
+var demoyield = new DemoYield();
+demoyield.Root();
 
 
 
