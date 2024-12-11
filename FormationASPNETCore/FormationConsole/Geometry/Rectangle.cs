@@ -31,11 +31,12 @@ namespace FormationConsole.Geometry
         public Color Color { get; set; } = Color.Blue;
 
         // CONSTRUCTEUR
-        //public Rectangle(double length=0, double width=0)
-        //{
-        //    this.length = length;
-        //    Width = width;
-        //}
+        public Rectangle(double length = 0, double width = 0)
+        {
+            this.length = length;
+            Width = width;
+        }
+        public Rectangle() { }
 
         // COMMENT
         public double Surface
@@ -54,5 +55,11 @@ namespace FormationConsole.Geometry
         {
             return $"Rectangle ({Length},{Width})";
         }
+
+        // Rectangle - Point HAS
+        // Rectangle - Carré IS
+        // Différence entre ces 2 relations
+        // Nommer les 2 relations avec un seul mot (verbe) compréhensible par un enfant de 2 ans
+        // 
     }
 }

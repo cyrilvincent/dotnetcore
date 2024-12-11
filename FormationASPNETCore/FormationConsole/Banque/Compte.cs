@@ -14,6 +14,11 @@ namespace FormationConsole.Banque
     // Idem pour débiter
     // UML
 
+    // Class CompteEpargne -> Compte
+    // prop Taux == annuel
+    // Prop calculée Interet == Solde * (1 + Taux)
+    // Tester
+
 
     public class Compte
     {

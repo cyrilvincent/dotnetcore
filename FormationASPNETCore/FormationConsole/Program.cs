@@ -223,6 +223,8 @@ r3.Point.Move(0, 2);
 r3.Point = null;
 r3.Point?.Move(0, 0);
 double? toto = r3.Point?.X;
+Square s1 = new Square(3);
+Console.WriteLine(s1.Surface);
 
 
 
@@ -246,6 +248,9 @@ foreach (var transaction in c1.Transactions)
     Console.WriteLine(transaction.Id);
 }
 Console.WriteLine(c2.Client.Nom);
+var c3 = new CompteEpargne(1, client, 100, "EUR", 0, 0.1m);
+Console.WriteLine(c3.Interet);
+
 
 //Counter count1 = new Counter();
 //Counter count2 = new Counter();
