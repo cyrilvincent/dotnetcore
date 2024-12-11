@@ -229,7 +229,12 @@ var rectangles = new List<Rectangle>
 {
     r1, r3, r4, new Rectangle { Length = 2, Width = 3, Point=p1 }
 };
-var result = rectangles.Where(r => r.Surface < 15);
+var result = rectangles.Where(r => r.Surface < 15).OrderBy(r => r.Surface); //.Select(r => new Square(r.Length));
+var result2 = rectangles.Where(r => r.Perimeter < 15).OrderBy(r => r.Surface);
+result.Intersect(result2);
+result.Except(result2);
+
+
 rectangles.Sum(r => r.Surface);
 foreach (Rectangle rectangle in result)
 {
@@ -241,9 +246,9 @@ for(int i = 0; i < 100; i++)
     rectangles.Add(new Square(i));
 }
 // Compte en incrémentant le solde du compte
-Random rnd = new Random();
-Decimal d = rnd.Next(0,100);
-d = (Decimal)rnd.NextDouble(); // 0 et 1
+//Random rnd = new Random();
+//Decimal d = rnd.Next(0,100);
+//d = (Decimal)rnd.NextDouble(); // 0 et 1
 
 // Sum, MAx, Min, filtrer par Surface pairs, Longueur > 10
 // OrderBy
@@ -293,6 +298,27 @@ Console.WriteLine(bank.GetInteretsEnCours());
 // Counter.Increment();
 // Console.WriteLine($"Count1: {count1.GetValue()} Count2: {count2.GetValue()}");
 // Counter.Value
+
+comptes = new List<Compte>();
+Random rnd = new Random();
+rnd.Next(0, 100);
+
+for (int i = 0; i < 100; i++)
+{
+    comptes.Add(new Compte((ulong)i, client, rnd.Next(0, 10000), "EUR"));
+}
+
+// Retourner les comptes dont le solde > 5000 .Count
+// Retourner les comptes dont le solde > 5000 ET numero est pair
+// Idem en + Trier les comptes par solde puis par id
+// Retourner que les soldes < 5000 => que des doubles
+// Retourner la moyenne des soldes des comptes 
+// Retourner la moyenne des soldes pour les comptes dont le solde < 5000
+// Tester une intersection entre 2 listes
+// Tester Union
+// Tester Except
+// Bonus Retourner les comptes numéro 1 (First()) et afficher ses transactions
+
 
 
 
