@@ -1,6 +1,6 @@
 ﻿namespace FormationAPI.Entities
 {
-    public class Compte
+    public class Compte : IEntity
     {
         public long Id { get; set; }
         public decimal Solde { get; set; }
