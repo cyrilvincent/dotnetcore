@@ -15,6 +15,7 @@ namespace FormationAPI
     public class FormationDbContext : DbContext
     {
         public virtual DbSet<Compte> Comptes { get; set; }
+        public virtual DbSet<Transaction> Transactions { get; set; }
 
         public FormationDbContext(DbContextOptions<FormationDbContext> options) : base(options)
         {

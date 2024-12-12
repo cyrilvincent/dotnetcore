@@ -9,10 +9,22 @@ namespace FormationTests
 {
     public class Tests
     {
+        private FormationDbContext Context {get; set;}
+
         [SetUp]
         public void Setup()
         {
+            var configuration = new ConfigurationBuilder().AddJsonFile("appsettings.json").Build();
+            var builder = new DbContextOptionsBuilder<FormationDbContext>();
+            var connectionString = configuration.GetConnectionString("FormationDb");
+            builder.UseSqlServer(connectionString);
+            Context = new FormationDbContext(builder.Options);
+        }
 
+        [TearDown]
+        public void TearDown()
+        {
+            Context.Dispose();
         }
 
         [Test]
@@ -40,20 +52,14 @@ namespace FormationTests
         public void TestAddCompte()
         {
             var c = new Compte { Solde = 10 };
-            var builder = new DbContextOptionsBuilder<FormationDbContext>();
-            builder.UseSqlServer("Data Source=localhost;Initial Catalog=Formation;Integrated Security=True;Encrypt=False");
-            var context = new FormationDbContext(builder.Options);
-            context.Add(c);
-            context.SaveChanges();
+            Context.Add(c);
+            Context.SaveChanges();
         }
 
         [Test]
         public void TestGetCompte()
         {
-            var builder = new DbContextOptionsBuilder<FormationDbContext>();
-            builder.UseSqlServer("Data Source=localhost;Initial Catalog=Formation;Integrated Security=True;Encrypt=False");
-            var context = new FormationDbContext(builder.Options);
-            var compte = context.Comptes.Where(c => c.Id == 1).First();
+            var compte = Context.Comptes.Where(c => c.Id == 1).First();
             Assert.That(compte, Is.Not.Null);
             Assert.That(compte.Devise, Is.EqualTo("EUR"));
         }
@@ -61,38 +67,59 @@ namespace FormationTests
         [Test]
         public void TestUpdateCompte()
         {
-            var builder = new DbContextOptionsBuilder<FormationDbContext>();
-            builder.UseSqlServer("Data Source=localhost;Initial Catalog=Formation;Integrated Security=True;Encrypt=False");
-            var context = new FormationDbContext(builder.Options);
-            var compte = context.Comptes.Where(c => c.Id == 1).First();
+            var compte = Context.Comptes.Where(c => c.Id == 1).First();
             compte.Solde = 20;
-            context.SaveChanges();
-            compte = context.Comptes.Where(c => c.Id == 1).First();
+            Context.SaveChanges();
+            compte = Context.Comptes.Where(c => c.Id == 1).First();
             Assert.That(compte.Solde, Is.EqualTo(20));
         }
 
         public void TestRemoveCompte()
         {
-            //var builder = new DbContextOptionsBuilder<FormationDbContext>();
-            //builder.UseSqlServer("Data Source=localhost;Initial Catalog=Formation;Integrated Security=True;Encrypt=False");
-            //var context = new FormationDbContext(builder.Options);
-            //var compte = context.Comptes.Where(c => c.Id == 1).First();
-            //context.Comptes.Remove(compte);
-            //context.SaveChanges();
+            //var compte = Context.Comptes.Where(c => c.Id == 1).First();
+            //Context.Comptes.Remove(compte);
+            //Context.SaveChanges();
         }
 
         [Test]
         public void TestWhereCompte()
         {
-            var builder = new DbContextOptionsBuilder<FormationDbContext>();
-            builder.UseSqlServer("Data Source=localhost;Initial Catalog=Formation;Integrated Security=True;Encrypt=False");
-            var context = new FormationDbContext(builder.Options);
-            var compte = context.Comptes.Where(c => c.Solde < 15).ToList();
-            Assert.That(compte.Count, Is.EqualTo(1));
+            var compte = Context.Comptes.Where(c => c.Solde > 15).ToList();
+            Assert.That(compte.Count, Is.GreaterThan(0));
+        }
 
+        [Test]
+        public void TestCreateComptes()
+        {
+            for(int i = 0; i < 10; i++)
+            {
+                var c = new Compte { Solde = i * 100 };
+                Context.Comptes.Add(c);
+            }
+            Context.SaveChanges();
+        }
+
+        [Test]
+        public void TestSoldeCompte()
+        {
+            var comptes = Context.Comptes.Where(c => c.Solde < 50).OrderBy(c => c.Solde).ToList();
+            Assert.That(comptes.Count, Is.GreaterThan(0));
         }
 
         // Faire un test qui ajoute 10 comptes avec un solde qui varie de 100 à 1000
         // Faire un autre test qui filtre tous les comptes avec solde < 50 trié par solde
+
+        [Test]
+        public void TestTransactions()
+        {
+            var compte = Context.Comptes.Where(c => c.Id == 1).First();
+            var transaction = new Transaction { Compte = compte, Montant = 10m, Type = TransactionType.Credit };
+            // Context.Transactions.Add(transaction);
+            compte.Transactions.Add(transaction);
+            Context.SaveChanges();
+        }
+
+        // Sur le compte 1 ajouter 10 transactions et amuser vous avec
+        // Context.Comptes.Include(c => c.Transactions).Any(c.Transactions)
     }
 }

@@ -6,5 +6,6 @@
         public decimal Solde { get; set; }
         public string Devise { get; set; } = "EUR";
         public string? Commentaire { get; set; }
+        public virtual ICollection<Transaction> Transactions { get; set; } = [];
     }
 }
