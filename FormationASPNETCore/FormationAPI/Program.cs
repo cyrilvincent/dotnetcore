@@ -8,11 +8,12 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 
 var connectionString = builder.Configuration.GetConnectionString("FormationDb");
-builder.Services.AddDbContext<FormationDbContext>(options =>
-{
-    options.UseSqlServer(connectionString)
-           .LogTo(Console.WriteLine);
-});
+//builder.Services.AddDbContext<FormationDbContext>(options =>
+//{
+//    options.UseSqlServer(connectionString)
+//           .LogTo(Console.WriteLine);
+//});
+Injections.InjectDbContext(builder.Services, connectionString);
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
