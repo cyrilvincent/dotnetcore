@@ -16,6 +16,7 @@ namespace FormationAPI
     {
         public virtual DbSet<Compte> Comptes { get; set; }
         public virtual DbSet<Transaction> Transactions { get; set; }
+        public virtual DbSet<Client> Clients { get; set; }
 
         public FormationDbContext(DbContextOptions<FormationDbContext> options) : base(options)
         {
@@ -25,8 +26,7 @@ namespace FormationAPI
         {
             base.OnModelCreating(builder);
             // builder.HasDefaultSchema("public"); // Pour PG
-            // Uniquement si l'assemblage est dans une autre DLL
-            // builder.ApplyConfigurationsFromAssembly(Assembly.GetAssembly(typeof(CompteConfiguration))!);
+            builder.ApplyConfigurationsFromAssembly(Assembly.GetAssembly(typeof(CompteConfiguration))!);
         }
 
 

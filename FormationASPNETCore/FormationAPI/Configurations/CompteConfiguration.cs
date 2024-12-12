@@ -23,6 +23,10 @@ namespace FormationAPI.Configurations
             builder.Property(entity => entity.Devise).HasColumnName("devise").IsRequired().HasMaxLength(3);
 
             builder.Property(entity => entity.Commentaire).HasColumnName("commentaire").HasMaxLength(255);
+
+            builder.HasMany(entity => entity.Clients)
+                .WithMany(entity => entity.Comptes)
+                .UsingEntity(entity => entity.ToTable("compte_client"));
         }
     }
 }

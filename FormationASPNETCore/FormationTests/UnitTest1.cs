@@ -9,7 +9,7 @@ namespace FormationTests
 {
     public class Tests
     {
-        private FormationDbContext Context {get; set;}
+        private FormationDbContext Context { get; set; }
 
         [SetUp]
         public void Setup()
@@ -91,7 +91,7 @@ namespace FormationTests
         [Test]
         public void TestCreateComptes()
         {
-            for(int i = 0; i < 10; i++)
+            for (int i = 0; i < 10; i++)
             {
                 var c = new Compte { Solde = i * 100 };
                 Context.Comptes.Add(c);
@@ -119,7 +119,31 @@ namespace FormationTests
             Context.SaveChanges();
         }
 
-        // Sur le compte 1 ajouter 10 transactions et amuser vous avec
-        // Context.Comptes.Include(c => c.Transactions).Any(c.Transactions)
+        [Test]
+        public void TestMultipleTransactions()
+        {
+            var compte = Context.Comptes.Where(c => c.Id == 1).First();
+            for (int i = 0; i < 10; i++)
+            {
+                var t = new Transaction { Compte = compte, Montant = (i + 1) * 100, Type = TransactionType.Credit };
+                compte.Transactions.Add(t);
+            }
+            Context.SaveChanges();
+        }
+
+        [Test]
+        public void TestJoinTransactions()
+        {
+            var compte = Context.Comptes.Include(c => c.Transactions).Where(c => c.Id == 1).First();
+            var t = compte.Transactions.Where(t => t.Montant < 200);
+            Assert.That(compte.Transactions.ToList(), Is.Not.Null);
+
+            
+        }
+
+        // Créer 2 clients
+        // Associer un compte à 2 clients
+        // Associer 1 client à 2 comptes
+
     }
 }

@@ -7,5 +7,6 @@
         public string Devise { get; set; } = "EUR";
         public string? Commentaire { get; set; }
         public virtual ICollection<Transaction> Transactions { get; set; } = [];
+        public virtual ICollection<Client> Clients { get; set; } = [];
     }
 }
