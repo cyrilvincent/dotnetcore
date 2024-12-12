@@ -1,0 +1,18 @@
+﻿Design Pattern Entity = DATA = Property only
+Bonne pratique, une interface par pattern
+L'entity implémente IEntity
+Créer le DbContext
+Créer une propriété DbSet par entity
+Dans outils se connecter à la bd et noter la chaine de connexion
+Ajouter dans appsettings.json   "ConnectionStrings": {"FormationDb": "Data Source=localhost;Initial Catalog=Formation;Integrated Security=True;Encrypt=False"  }
+Ajouter dans Program.cs
+var connectionString = builder.Configuration.GetConnectionString("FormationDb");
+builder.Services.AddDbContext<FormationDbContext>(options =>
+{
+    options.UseSqlServer(connectionString)
+           .LogTo(Console.WriteLine);
+});
+dotnet tool install --global dotnet-ef
+dotnet ef migrations add InitialCreate
+dotnet ef database update
+
