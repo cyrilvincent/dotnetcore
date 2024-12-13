@@ -1,4 +1,5 @@
 ﻿using FormationAPI;
+using FormationAPI.Adapters;
 using FormationAPI.Services;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -54,6 +55,24 @@ namespace FormationTests
             var compte = bankService.CreateCompteAndClient("Vincent", "Cyril");
             bankService.Crediter(compte.Id, compte.Clients.First().Id, 10);
             Assert.That(compte.Solde, Is.EqualTo(10m));
+        }
+
+
+        [Test]
+        public void TestDTO()
+        {
+            var gestionCompteService = serviceProvider.GetService<IGestionCompteService>()!;
+            var compte = gestionCompteService.GetCompteById(1);
+            var dto = compte.ToCompteClientDTO();
+            Assert.That(dto.Solde, Is.EqualTo(0));
+        }
+
+        [Test]
+        public void TestDTOs()
+        {
+            var bankService = serviceProvider.GetService<IBankService>()!;
+            var dtos = bankService.GetComptesByClient(1).Select(c => c.ToCompteClientDTO());
+            Assert.That(dtos.Count, Is.GreaterThan(0));
         }
 
     }

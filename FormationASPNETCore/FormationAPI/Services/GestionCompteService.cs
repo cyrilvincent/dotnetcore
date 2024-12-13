@@ -1,4 +1,5 @@
 ﻿using FormationAPI.Entities;
+using Microsoft.EntityFrameworkCore;
 
 namespace FormationAPI.Services
 {
@@ -46,7 +47,7 @@ namespace FormationAPI.Services
 
         public Client GetClientById(long id)
         {
-            return context.Clients.First(c => c.Id == id);
+            return context.Clients.Include(c => c.Comptes).First(c => c.Id == id);
         }
 
         public Compte GetCompteById(long id)

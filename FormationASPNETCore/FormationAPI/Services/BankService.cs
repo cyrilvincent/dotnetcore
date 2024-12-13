@@ -9,6 +9,8 @@ namespace FormationAPI.Services
         void Crediter(long compteId, long clientId, decimal montant);
         void Debiter(long compteId, long clientId, decimal montant);
         IQueryable<Compte> Stats();
+
+        ICollection<Compte> GetComptesByClient(long clientId);
     }
 
     public class BankService : IBankService
@@ -63,6 +65,12 @@ namespace FormationAPI.Services
             {
                 new BankException("Impossible de débiter un compte d'un autre client");
             }
+        }
+
+        public ICollection<Compte> GetComptesByClient(long clientId)
+        {
+            var client = gestionCompteService.GetClientById(clientId);
+            return client.Comptes;
         }
 
 
