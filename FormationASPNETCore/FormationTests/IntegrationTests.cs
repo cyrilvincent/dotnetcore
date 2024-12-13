@@ -21,15 +21,10 @@ namespace FormationTests
         public void SetUp()
         {
             var configuration = new ConfigurationBuilder().AddJsonFile("appsettings.json").Build();
-
             var services = new ServiceCollection();
-
             Injections.InjectDbContext(services, configuration.GetConnectionString("FormationDb")!);
-
             var builder = new DbContextOptionsBuilder<FormationDbContext>();
-
             serviceProvider = services.AddEntityFrameworkSqlServer().BuildServiceProvider();
-
             builder.UseSqlServer(configuration.GetConnectionString("FormationDb")).UseInternalServiceProvider(serviceProvider);
             this.context = new FormationDbContext(builder.Options);
         }

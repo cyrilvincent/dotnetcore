@@ -45,24 +45,37 @@ namespace FormationTests
         }
 
         [Test]
-        public void TestInjection()
+        public void TestIoC()
         {
             var services = new ServiceCollection();
             services.AddScoped<IEntity, Compte>();
             var serviceProvider = services.BuildServiceProvider();
             var entity = serviceProvider.GetService<IEntity>();
             Assert.That(entity, Is.Not.Null);
+            var compte = (Compte)entity;
+
         }
 
         [Test]
-        public void TestIoD()
+        public void TestDI()
         {
             var services = new ServiceCollection();
-            services.AddScoped<IEntity, Compte>();
+            services.AddSingleton<IEntity, Compte>();
             services.AddScoped<ITestInjection, TestInjection>();
             var serviceProvider = services.BuildServiceProvider();
             var service = serviceProvider.GetService<ITestInjection>()!;
             Assert.That(service.Entity, Is.Not.Null);
         }
+
+        // TP
+        // Ajouter le package EntityFrameworkCore.InMemory
+        // Ajouter dans le projet Web injection.cs depuis github
+        // Comprendre Injection.cs dans le projet API
+        // Comprendre dans program.cs pourquoi j'ai mis en commentaire les lignes 11 à 15 et remplacé par la ligne 16
+        // Faire tourner IntegrationTests
+        // Créer le répertoire Services dans API
+        // Ajouter la classe TestInjection.cs comme dans Github
+        // Comprendre le Setup de UnitTest et faire tourner
+
     }
 }
