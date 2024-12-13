@@ -4,7 +4,7 @@ namespace FormationAPI.Services
 {
     public interface IBankService
     {
-        void CreateCompteAndClient(string nomClient, string prenomClient);
+        Compte CreateCompteAndClient(string nomClient, string prenomClient);
         void Crediter(long compteId, long clientId, decimal montant);
         void Debiter(long compteId, long clientId, decimal montant);
         IQueryable<Compte> Stats();
@@ -26,11 +26,12 @@ namespace FormationAPI.Services
             this.compteUseService = compteUseService;
         }
 
-        public void CreateCompteAndClient(string nomClient, string prenomClient)
+        public Compte CreateCompteAndClient(string nomClient, string prenomClient)
         {
             var client = gestionCompteService.CreateClient(nomClient, prenomClient);
             var compte = gestionCompteService.CreateCompte(client, 0m);
             context.SaveChanges();
+            return compte;
         }
 
         public void Crediter(long compteId, long clientId, decimal montant)
@@ -40,6 +41,7 @@ namespace FormationAPI.Services
             if (client.Comptes.Contains(compte))
             {
                 compteUseService.Crediter(compte, montant);
+                context.SaveChanges();
             }
             else
             {

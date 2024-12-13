@@ -67,6 +67,7 @@ namespace FormationTests
             Assert.That(service.Entity, Is.Not.Null);
         }
 
+
         
         // TP
         // Ajouter le package EntityFrameworkCore.InMemory
