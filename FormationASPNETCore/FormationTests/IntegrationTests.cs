@@ -1,4 +1,5 @@
 ﻿using FormationAPI;
+using FormationAPI.Services;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -24,6 +25,9 @@ namespace FormationTests
             var services = new ServiceCollection();
             Injections.InjectDbContext(services, configuration.GetConnectionString("FormationDb")!);
             var builder = new DbContextOptionsBuilder<FormationDbContext>();
+            Injections.InjectBankService(services);
+            Injections.InjectGestionCompteService(services);
+            Injections.InjectGestionUseService(services);
             serviceProvider = services.AddEntityFrameworkSqlServer().BuildServiceProvider();
             builder.UseSqlServer(configuration.GetConnectionString("FormationDb")).UseInternalServiceProvider(serviceProvider);
             this.context = new FormationDbContext(builder.Options);
@@ -42,5 +46,14 @@ namespace FormationTests
             var compte = context.Comptes.Where(c => c.Id == 1).First();
             Assert.That(compte, Is.Not.Null);
         }
+
+        [Test]
+        public void TestBankService()
+        {
+            var bankService = serviceProvider.GetService<IBankService>()!;
+            var compte = bankService.CreateCompteAndClient("Vincent", "Client");
+            bankService.Crediter(compte.Id, compte.Clients.First().Id, 10);
+        }
+
     }
 }

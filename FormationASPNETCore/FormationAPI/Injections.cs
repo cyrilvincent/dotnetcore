@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using FormationAPI.Services;
+using Microsoft.EntityFrameworkCore;
 
 namespace FormationAPI
 {
@@ -11,6 +12,21 @@ namespace FormationAPI
                 options.UseSqlServer(connectionString)
                        .LogTo(Console.WriteLine);
             });
+        }
+
+        public static void InjectGestionCompteService(IServiceCollection services)
+        {
+            services.AddScoped<IGestionCompteService, GestionCompteService>();
+        }
+
+        public static void InjectGestionUseService(IServiceCollection services)
+        {
+            services.AddScoped<ICompteUseService, CompteUseService>();
+        }
+
+        public static void InjectBankService(IServiceCollection services)
+        {
+            services.AddScoped<IBankService, BankService>();
         }
     }
 }

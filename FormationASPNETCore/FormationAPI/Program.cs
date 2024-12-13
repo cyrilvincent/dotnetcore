@@ -7,7 +7,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
 
-var connectionString = builder.Configuration.GetConnectionString("FormationDb");
+var connectionString = builder.Configuration.GetConnectionString("FormationDb")!;
 //builder.Services.AddDbContext<FormationDbContext>(options =>
 //{
 //    options.UseSqlServer(connectionString)
