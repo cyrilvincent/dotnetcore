@@ -1,4 +1,5 @@
 ﻿using FormationAPI.Entities;
+using FormationAPI.Exceptions;
 
 namespace FormationAPI.Services
 {
@@ -33,7 +34,7 @@ namespace FormationAPI.Services
             }
             else
             {
-                // todo Exception
+                new BankException("Solde insuffisant");
             }
         }
 

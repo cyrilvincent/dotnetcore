@@ -1,4 +1,5 @@
 ﻿using FormationAPI.Entities;
+using FormationAPI.Exceptions;
 
 namespace FormationAPI.Services
 {
@@ -30,6 +31,7 @@ namespace FormationAPI.Services
         {
             var client = gestionCompteService.CreateClient(nomClient, prenomClient);
             var compte = gestionCompteService.CreateCompte(client, 0m);
+            client.Comptes.Add(compte);
             context.SaveChanges();
             return compte;
         }
@@ -45,7 +47,7 @@ namespace FormationAPI.Services
             }
             else
             {
-                // TODO Exception
+                new BankException("Impossible de crédit un compte d'un autre client");
             }
         }
 
@@ -59,7 +61,7 @@ namespace FormationAPI.Services
             }
             else
             {
-                // TODO Exception
+                new BankException("Impossible de débiter un compte d'un autre client");
             }
         }
 

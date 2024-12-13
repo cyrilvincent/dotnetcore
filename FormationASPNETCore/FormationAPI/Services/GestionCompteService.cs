@@ -6,13 +6,13 @@ namespace FormationAPI.Services
     {
         Client CreateClient(string prenom, string nom); // USE CASE
         Client GetClientById(long id);
-        IQueryable<Client> GetClientByNom(string nom);
+        IQueryable<Client> GetClientsByNom(string nom);
         void RemoveClient(long id);
         Compte CreateCompte(Client client, decimal solde);
 
         Compte GetCompteById(long id);
         void AddClient(Compte compte, Client client);
-        void RemoveClient(Compte compte, Client client);
+        void RemoveClientFromCompte(Compte compte, Client client);
 
     }
 
@@ -54,7 +54,7 @@ namespace FormationAPI.Services
             return context.Comptes.Where(c => c.Id == id).First();
         }
 
-        public IQueryable<Client> GetClientByNom(string nom)
+        public IQueryable<Client> GetClientsByNom(string nom)
         {
             return context.Clients.Where(c => c.Nom.ToUpper() == nom.ToUpper());
         }
@@ -65,7 +65,7 @@ namespace FormationAPI.Services
             context.Clients.Remove(client);
         }
 
-        public void RemoveClient(Compte compte, Client client)
+        public void RemoveClientFromCompte(Compte compte, Client client)
         {
             compte.Clients.Remove(client);
         }

@@ -51,8 +51,9 @@ namespace FormationTests
         public void TestBankService()
         {
             var bankService = serviceProvider.GetService<IBankService>()!;
-            var compte = bankService.CreateCompteAndClient("Vincent", "Client");
+            var compte = bankService.CreateCompteAndClient("Vincent", "Cyril");
             bankService.Crediter(compte.Id, compte.Clients.First().Id, 10);
+            Assert.That(compte.Solde, Is.EqualTo(10m));
         }
 
     }
