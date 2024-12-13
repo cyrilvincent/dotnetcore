@@ -14,6 +14,9 @@ var connectionString = builder.Configuration.GetConnectionString("FormationDb")!
 //           .LogTo(Console.WriteLine);
 //});
 Injections.InjectDbContext(builder.Services, connectionString);
+Injections.InjectBankService(builder.Services);
+Injections.InjectGestionCompteService(builder.Services);
+Injections.InjectGestionUseService(builder.Services);
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();

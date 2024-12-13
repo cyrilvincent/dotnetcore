@@ -52,7 +52,7 @@ namespace FormationAPI.Services
 
         public Compte GetCompteById(long id)
         {
-            return context.Comptes.Where(c => c.Id == id).First();
+            return context.Comptes.Include(c => c.Clients).Where(c => c.Id == id).First();
         }
 
         public IQueryable<Client> GetClientsByNom(string nom)
