@@ -75,5 +75,13 @@ namespace FormationTests
             Assert.That(dtos.Count, Is.GreaterThan(0));
         }
 
+        [Test]
+        public void TestADO()
+        {
+            var compteADO = new CompteADO();
+            var comptes = compteADO.SelectAllComptes();
+            Assert.That(comptes.Count, Is.GreaterThan(0));
+        }
+
     }
 }

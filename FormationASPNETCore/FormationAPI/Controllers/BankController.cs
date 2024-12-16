@@ -5,6 +5,7 @@ using FormationAPI.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
+
 namespace FormationAPI.Controllers
 {
     [Route($"api/[controller]")]
