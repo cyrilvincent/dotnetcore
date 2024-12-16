@@ -4,7 +4,7 @@ services:
   frontend:
     image: formation-frontend
     build:
-      context: ./CoreApp/FrontEnd
+      context: ./FrontEnd
       dockerfile: Dockerfile.dev
     environment:
       NODE_ENV: Development
@@ -20,7 +20,7 @@ services:
   backend:
     image: formation-backend
     build:
-      dockerfile: ./CoreApp/BackEnd/Api/Dockerfile
+      dockerfile: .BackEnd/Dockerfile
     ports:
       - "127.0.0.1:8080:8080"
     environment:
