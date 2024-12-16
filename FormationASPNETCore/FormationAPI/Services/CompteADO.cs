@@ -6,6 +6,16 @@ namespace FormationAPI.Services
 {
     public class CompteADO
     {
+        // TP
+        // Faire marcher CompteADO
+        // SelectCompteById
+        // SelectCompteBySoldeGreater(solde)
+        // Tester AddCompte
+        // Tester RemoveCompte(id)
+        // Tester UpdateCompte
+        // Bonus : Aller chercher la connstring par configuration (program.cs)
+        // Bonus Injecter la classe et tester avec IoC
+
         private string connString = "Data Source=localhost;Initial Catalog=Formation;Integrated Security=True;Encrypt=False";
 
         public List<Compte> SelectAllComptes()
