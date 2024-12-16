@@ -18,15 +18,18 @@ namespace FormationAPI.Services
         private FormationDbContext context;
         private IGestionCompteService gestionCompteService;
         private ICompteUseService compteUseService;
+        private ILogger<BankService> logger;
 
 
         public BankService(FormationDbContext context,
             IGestionCompteService gestionCompteService,
-            ICompteUseService compteUseService)
+            ICompteUseService compteUseService,
+            ILogger<BankService> logger)
         {
             this.context = context;
             this.gestionCompteService = gestionCompteService;
             this.compteUseService = compteUseService;
+            this.logger = logger;
         }
 
         public Compte CreateCompteAndClient(string nomClient, string prenomClient)
@@ -46,9 +49,11 @@ namespace FormationAPI.Services
             {
                 compteUseService.Crediter(compte, montant);
                 context.SaveChanges();
+                logger.LogInformation("Crediter ok");
             }
             else
             {
+                logger.LogWarning("Crediter error");
                 new BankException("Impossible de crédit un compte d'un autre client");
             }
         }
@@ -70,6 +75,7 @@ namespace FormationAPI.Services
         public ICollection<Compte> GetComptesByClient(long clientId)
         {
             var client = gestionCompteService.GetClientById(clientId);
+            logger.LogWarning($"GetCompteByClient {clientId}");
             return client.Comptes;
         }
 

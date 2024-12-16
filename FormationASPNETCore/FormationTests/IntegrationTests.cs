@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using NLog.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -29,6 +30,14 @@ namespace FormationTests
             Injections.InjectBankService(services);
             Injections.InjectGestionCompteService(services);
             Injections.InjectGestionUseService(services);
+
+            services.AddLogging(logging =>
+            {
+                logging.ClearProviders();
+                logging.SetMinimumLevel(LogLevel.Trace);
+            });
+            services.AddSingleton<ILoggerProvider, NLogLoggerProvider>();
+
             serviceProvider = services.AddEntityFrameworkSqlServer().BuildServiceProvider();
             builder.UseSqlServer(configuration.GetConnectionString("FormationDb")).UseInternalServiceProvider(serviceProvider);
             this.context = new FormationDbContext(builder.Options);

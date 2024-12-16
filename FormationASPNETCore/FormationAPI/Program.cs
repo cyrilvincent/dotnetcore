@@ -1,7 +1,23 @@
 using FormationAPI;
 using Microsoft.EntityFrameworkCore;
+using NLog.Web;
+using NLog;
+using NLog.Extensions.Logging;
+
+
+//var logger = LogManager.Setup().LoadConfigurationFromAppSettings().GetCurrentClassLogger();
+//logger.Debug("Init main");
 
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.AddLogging(logging =>
+{
+    logging.ClearProviders();
+    logging.SetMinimumLevel(Microsoft.Extensions.Logging.LogLevel.Trace);
+});
+
+// Add NLog as the logger provider
+builder.Services.AddSingleton<ILoggerProvider, NLogLoggerProvider>();
 
 // Add services to the container.
 
